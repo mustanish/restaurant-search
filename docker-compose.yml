@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+    search-db:
+        image: arangodb:3.6.2
+        container_name: search-db
+        restart: unless-stopped
+        environment:
+            ARANGO_ROOT_PASSWORD: search
+        volumes:
+            - arangodb_data:/var/lib/arangodb3
+            - arangodb_apps:/var/lib/arangodb3-apps
+        ports:
+            - '8529:8529'
+    search-app:
+        build: ./
+        image: search-app
+        container_name: search-app
+        restart: unless-stopped
+        volumes:
+            - ./:/usr/src/search/
+        depends_on:
+            - search-db
+        environment:
+            DATABASE_URL: 'http://search-db:8529'
+            ENV: development
+        ports:
+            - '5000:5000'
+volumes:
+    arangodb_data:
+    arangodb_apps:

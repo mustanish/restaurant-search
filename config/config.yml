@@ -1,0 +1,16 @@
+development:
+    server:
+        port: '5000'
+        host: 'http://localhost'
+    database:
+        dbName: 'restaurant'
+        dbUser: 'root'
+        dbPassword: 'search'
+production:
+    server:
+        port:
+        host:
+    database:
+        dbName:
+        dbUser:
+        dbPassword:
